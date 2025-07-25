@@ -66,9 +66,13 @@ Crear un dominio en EventCatalog para una aplicación existente.
     name: {nombre-dominio-original}
     version: 0.0.1
     summary: |
-    {resumen sugerido por la IA o dado por el usuario y mejorado por la IA}
+        {summary}
     ---
 
+    ## Overview
+    
+    {summary}
+    
     <NodeGraph />
 
     ```
