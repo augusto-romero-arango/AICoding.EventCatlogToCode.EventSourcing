@@ -22,13 +22,19 @@
 ## Context
 
 ### Beginning context
-- `./src/`  Solo los directorios que estén en este nivel, no se debe adicionar al contexto los contenidos de los subdirectorios.
+- `./{nombre-aplicacion}/src/`  Solo los directorios que estén en este nivel, no se debe adicionar al contexto los contenidos de los subdirectorios.
 
 ### Ending context  
-- `/src/{nombre-solucion-creada}/`  
+- `./{nombre-aplicacion}/src/{nombre-solucion-creada}/`  
 
 ## Low-Level Tasks
 > Ordered from start to finish
+
+### 0. Obtener el nombre de la aplicación
+- El nombre de la aplicación se debe capturar del prompt.
+- Buscar en la raiz un directorio que habiendo sido normalizado, coincida con el nombre de la aplicación recibido en el prompt. Guardar en la variable `{nombre-aplicacion}` el nombre del directorio encontrado.
+- Verificar que el directorio encontrado contenga una carpeta `src`.
+- Si no se encuentra el directorio o no contiene la carpeta `src`, abortar la operación y mostrar un mensaje de error al usuario.
 
 ### 1. Verificar prerrequisitos:
 
@@ -66,7 +72,7 @@ Aplicar transformaciones al nombre en este orden exacto:
 
 **Instrucciones optimizadas:**
 ```
-LS: path="./src"
+LS: path="./{nombre-aplicacion}/src"
 1. Verificar si existe directorio con nombre-solucion-normalizado exacto
 2. Buscar nombres similares usando distancia de Levenshtein o similitud de cadenas
 3. Si existe el nombre exacto: mostrar error y terminar proceso
@@ -86,7 +92,7 @@ LS: path="./src"
 
 **Instrucciones optimizadas:**
 ```
-Bash: mkdir -p "./src/{nombre-solucion-normalizado}"
+Bash: mkdir -p "./{nombre-aplicacion}/src/{nombre-solucion-normalizado}"
 ```
 
 ### 5. Identificación de puertos
@@ -94,7 +100,7 @@ Bash: mkdir -p "./src/{nombre-solucion-normalizado}"
 **Instrucciones optimizadas:**
 ```
 Ejecutar para cada solución existente:
-- Read: ./src/{solucion}/docker-compose.override.yaml
+- Read: ./{nombre-aplicacion}/src/{solucion}/docker-compose.override.yaml
 
 Extraer puertos con regex:
 - Comandos API: /^\s*-\s*"(\d+):8080"/m (contexto: {solucion}comandos-api)
@@ -111,14 +117,14 @@ Seleccionar puertos libres:
 
 **Instrucciones optimizadas:**
 ```
-Bash: cd "./src/{nombre-solucion-normalizado}" && dotnet new cosmos-eventsourcing -n {nombre-solucion-normalizado} --projectComandosHttpPort {port1} --projectConsultasHttpPort {port2} --projectNpgDatabasePort {port3}
+Bash: cd "./{nombre-aplicacion}/src/{nombre-solucion-normalizado}" && dotnet new cosmos-eventsourcing -n {nombre-solucion-normalizado} --projectComandosHttpPort {port1} --projectConsultasHttpPort {port2} --projectNpgDatabasePort {port3}
 ```
 
 ### 7. Verificar que la solución se haya creado correctamente
 
 **Instrucciones optimizadas:**
 ```
-Bash: cd "./src/{nombre-solucion-normalizado}" && dotnet build {nombre-solucion-normalizado}.sln
+Bash: cd "./{nombre-aplicacion}/src/{nombre-solucion-normalizado}" && dotnet build {nombre-solucion-normalizado}.sln
 ```
 
 **Validación:**

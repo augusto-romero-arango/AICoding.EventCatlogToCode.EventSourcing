@@ -1,0 +1,6 @@
+.env
+node_modules/
+bin/
+obj/
+*.log
+ejemplo_aplicacion/

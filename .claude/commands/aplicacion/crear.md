@@ -1,4 +1,4 @@
-Crea una aplicación con un EventCatalog y el directorio ´src´ para soluciones de EventSourcing creadas con la plantilla Cosmos.EventSourcing.Template.
+Crea una aplicación con un EventCatalog y el directorio ´src´ donde se alojarán las soluciones de cada uno de los microservicios.
 
 **Nombre aplicacion:** $ARGUMENTS
 
