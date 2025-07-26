@@ -81,6 +81,10 @@ Crear un evento que es emitido por un CommandHandler dentro de un subdominio de 
      ## Overview
 
     {summary}
+
+    <Schema file="schema.avro" />
+
+    <SchemaViewer file="schema.avro" />
         
     ```
 
@@ -91,7 +95,7 @@ Crear un evento que es emitido por un CommandHandler dentro de un subdominio de 
      ...
 
      sends:
-         - {nombre-evento}
+         - id: {nombre-evento}
      ...
      ---
   

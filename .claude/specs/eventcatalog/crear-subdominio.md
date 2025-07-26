@@ -94,10 +94,10 @@ Crear un subdominio dentro de un dominio en EventCatalog para una aplicación ex
       ...
 
       domains:
-         - {nombre-subdominio}
+         - id: {nombre-subdominio}
 
       ...
-      
+
       ---
       ```
       - Si el frontmatter ya contiene la propiedad `domains`, agregar el subdominio a la lista existente.

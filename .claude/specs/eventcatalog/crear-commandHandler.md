@@ -90,7 +90,7 @@ Crear un CommandHandler que se registre como un servicio dentro de un subdominio
         ...
 
         services:
-            - {nombre-commandHandler}
+            - id: {nombre-commandHandler}
 
         ...
         ---
