@@ -14,31 +14,32 @@ Documentar las propiedades de un mensaje existente en esquema Avro y publicarlo 
 
 - EventCatalog es un proyecto para documentar arquitecturas eventuales. Su documentación se encuentra en [EventCatalog](https://eventcatalog.dev).
 - Usar la especificación de Avro en la versión 1.12.0. Referenciada en [Avro 1.12.0](https://avro.apache.org/docs/1.12.0/specification/)
+- **Directory Structure**: All paths follow the patterns defined in [directory-structure.md](./directory-structure.md).
 - IMPORTANTE: No se deben afectar archivos por fuera del directorio enunciado en la sección `Context` de esta especificación.
 
 ## Context
 
+> **Directory Structure Reference**: See [directory-structure.md](./directory-structure.md) for complete path definitions.
+
 ### Beginning Context
 
-- `./{nombre-aplicacion}/{nombre-aplicacion-catalog}/domains/{nombre-dominio}/subdomains/{nombre-subdominio}/services/{nombre-commandHandler}/events/{nombre-evento}/` Directorio que contendrá el evento.
-- `./{nombre-aplicacion}/{nombre-aplicacion-catalog}/domains/{nombre-dominio}/subdomains/{nombre-subdominio}/services/{nombre-commandHandler}/commands/{nombre-comando}/` Directorio que contendrá el comando.
-
+- **Event Directory**: Directorio que contendrá el evento.
+- **Command Directory**: Directorio que contendrá el comando.
 
 ### Ending Context
 
-- `./{nombre-aplicacion}/{nombre-aplicacion-catalog}/domains/{nombre-dominio}/subdomains/{nombre-subdominio}/services/{nombre-commandHandler}/events/{nombre-evento}/schema.avro` Archivo de documentación del evento.
-- `./{nombre-aplicacion}/{nombre-aplicacion-catalog}/domains/{nombre-dominio}/subdomains/{nombre-subdominio}/services/{nombre-commandHandler}/commands/{nombre-comando}/schema.avro` Archivo de documentación del comando.
+- **Event Directory** + `schema.avro`: Archivo de documentación del evento.
+- **Command Directory** + `schema.avro`: Archivo de documentación del comando.
 
 ## Low-Level Tasks
 > Ordered from start to finish
 
 1. Ubicar el evento o el comando en EventCatalog:
-   - Determinar del prompt si se trata de un evento o un comando. Los eventos se pueden identificar porque están nombrados en participio pasado, por ejemplo: `PedidoCreado`, `UsuarioRegistrado`, etc. Los comandos suelen tener un nombre que indica una acción, como `CrearPedido`.
-   - Buscar en todas las carpetas de `events` o `commands`  del EventCatalog mensaje con el nombre `{nombre-mensaje}`.
-   - Si no encuentra el mensaje, listar los posibles eventos o comandos disponibles y solicitar al usuario que seleccione uno o que aborte la operación.
-   - Si encuentra más de un mensaje con el mismo nombre, sugerir al usuario que seleccione uno de los eventos o comandos encontrados mostrándole el subdominio al que cada uno pertenece.
-   - Guardar en la variable `{ruta-evento}` el nombre del directorio `./{nombre-aplicacion}/{nombre-aplicacion}-catalog/domains/{nombre-dominio}/subdomains/{nombre-subdominio}/services/{nombre-commandHandler}/events/{nombre-evento}/` encontrado.
-   - Guardar en la variable `{ruta-comando}` el nombre del directorio `./{nombre-aplicacion}/{nombre-aplicacion}-catalog/domains/{nombre-dominio}/subdomains/{nombre-subdominio}/services/{nombre-commandHandler}/commands/{nombre-comando}/` encontrado.
+   - Capturar del prompt el nombre del mensaje y determinar su tipo según las reglas de **Event Names** y **Command Names** en directory-structure.md.
+   - Buscar el mensaje en todas las **Events Directory** o **Commands Directory** del EventCatalog.
+   - Si no se encuentra, listar los mensajes disponibles y solicitar al usuario que seleccione uno o aborte la operación.
+   - Si hay múltiples coincidencias, mostrar las opciones con su subdominio correspondiente para que el usuario seleccione.
+   - Guardar la **Event Directory** o **Command Directory** encontrada en la variable correspondiente.
 
 2. Verificar que el mensaje tenga un archivo `index.mdx`:
    - Si el archivo `index.mdx` no existe, abortar la operación y mostrar un mensaje de error al usuario.
@@ -47,7 +48,7 @@ Documentar las propiedades de un mensaje existente en esquema Avro y publicarlo 
 3. Crear el esquema Avro del mensaje:
    - Iterar sobre las propiedades que enuncie el usuario en el prompt.
    - Para cada propiedad, capturar el nombre, tipo y descripción.
-   - Generar el archivo `schema.avro` en la ruta `{ruta-evento}` o `{ruta-comando}` siguiendo la especificación de Avro 1.12.0.
+   - Generar el archivo `schema.avro` en la **Event Directory** o **Command Directory** correspondiente siguiendo la especificación de Avro 1.12.0.
    - Preguntar al usuario si desea agregar más propiedades.
    - Iterar hasta que el usuario indique que no desea agregar más propiedades.
   
