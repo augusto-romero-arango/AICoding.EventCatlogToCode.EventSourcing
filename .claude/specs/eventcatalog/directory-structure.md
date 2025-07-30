@@ -70,6 +70,18 @@ This file defines the centralized directory structure patterns used across all E
 ./{nombre-aplicacion}/{nombre-aplicacion}-catalog/domains/{nombre-dominio}/subdomains/{nombre-subdominio}/services/{nombre-commandHandler}/commands/{nombre-comando}/
 ```
 
+## Entity Structure
+
+### Entities Directory
+```
+./{nombre-aplicacion}/{nombre-aplicacion}-catalog/domains/{nombre-dominio}/entities/
+```
+
+### Entity Directory
+```
+./{nombre-aplicacion}/{nombre-aplicacion}-catalog/domains/{nombre-dominio}/entities/{nombre-entidad}/
+```
+
 ## Path Variables Reference
 
 | Variable | Description | Example |
@@ -81,6 +93,7 @@ This file defines the centralized directory structure patterns used across all E
 | `{nombre-commandHandler}` | Normalized CommandHandler name | `CrearPedidoCommandHandler` |
 | `{nombre-evento}` | Normalized event name (past participle) | `PedidoCreado` |
 | `{nombre-comando}` | Normalized command name | `CrearPedido` |
+| `{nombre-entidad}` | Normalized entity name | `Pedido` |
 
 ## Common Path Patterns
 
@@ -112,6 +125,11 @@ This file defines the centralized directory structure patterns used across all E
 ### Command Listing Path
 ```
 ./{nombre-aplicacion}/{nombre-aplicacion}-catalog/domains/{nombre-dominio}/subdomains/{nombre-subdominio}/services/{nombre-commandHandler}/commands/
+```
+
+### Entity Listing Path
+```
+./{nombre-aplicacion}/{nombre-aplicacion}-catalog/domains/{nombre-dominio}/entities/
 ```
 
 ## Normalization Rules
@@ -146,3 +164,8 @@ This file defines the centralized directory structure patterns used across all E
 - PascalCase
 - Remove special characters
 - Action-oriented naming
+
+### Entity Names
+- PascalCase
+- Remove special characters
+- Noun-oriented naming (represents domain objects)
