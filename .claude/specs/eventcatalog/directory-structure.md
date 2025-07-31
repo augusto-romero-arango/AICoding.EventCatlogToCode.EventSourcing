@@ -169,3 +169,38 @@ This file defines the centralized directory structure patterns used across all E
 - PascalCase
 - Remove special characters
 - Noun-oriented naming (represents domain objects)
+
+## EventCatalog Reference Tree Structure
+
+```
+{nombre-aplicacion}-catalog/
+├── domains/
+│   └── {nombre-dominio}/
+│       ├── index.mdx                                 # Domain documentation
+│       ├── entities/                                 # Domain-level entities
+│       │   └── {nombre-entidad}/
+│       │       └── index.mdx                         # Entity documentation
+│       └── subdomains/
+│           └── {nombre-subdominio}/
+│               ├── index.mdx                         # Subdomain documentation
+│               ├── entities/                         # Subdomain-level entities
+│               │   └── {nombre-entidad}/
+│               │       └── index.mdx                 # Entity documentation
+│               └── services/
+│                   └── {nombre-commandHandler}/
+│                       ├── index.mdx                 # CommandHandler documentation
+│                       ├── commands/                 # Commands directory
+│                       │   └── {nombre-comando}/
+│                       │       ├── index.mdx         # Command documentation
+│                       │       └── schema.avro       # Command schema
+│                       └── events/
+│                           └── {nombre-evento}/
+│                               ├── index.mdx         # Event documentation
+│                               └── schema.avro       # Event schema
+├── eventcatalog.config.js                           # EventCatalog configuration
+├── eventcatalog.auth.js                             # Authentication configuration
+├── eventcatalog.styles.css                          # Custom styles
+├── package.json                                     # Dependencies
+└── public/                                          # Static assets
+    └── logo.png                                     # Application logo
+```

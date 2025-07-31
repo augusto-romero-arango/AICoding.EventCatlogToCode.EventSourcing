@@ -72,10 +72,6 @@ Crear una entidad que representa un objeto de dominio dentro de un dominio de Ev
      ## Properties
 
      <EntityPropertiesTable />
-
-     ## Entity Map
-
-     <EntityMap id="{nombre-subdominio}" />
         
      ```
 
