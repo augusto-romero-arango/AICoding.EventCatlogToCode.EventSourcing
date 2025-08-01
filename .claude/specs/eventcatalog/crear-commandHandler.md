@@ -69,7 +69,7 @@ Crear un CommandHandler que se registre como un servicio dentro de un subdominio
 
         ## Entity Map
 
-        <EntityMap id="{nombre-subdominio}" />
+        <EntityMap  collection="domains" id="{nombre-subdominio}" />
 
         ```
 5. Registrar el CommandHandler en el subdominio:
