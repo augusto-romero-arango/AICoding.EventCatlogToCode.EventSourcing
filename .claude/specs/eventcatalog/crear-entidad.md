@@ -46,7 +46,7 @@ Crear una entidad que representa un objeto de dominio dentro de un dominio de Ev
    - Si el nombre de la entidad ya existe en la **Entities Directory**, abortar la operación y mostrar un mensaje de error al usuario.
    - Guardar el nombre normalizado en la variable `{nombre-entidad}`.
 
-3. Crear el directorio de la entidad:
+3. Crear el directorio de la entidad dentro del directorio del subdominio:
    - Crear la **Entity Directory** para `{nombre-entidad}`.
 
 4. Crear el archivo de especificación de la entidad:
@@ -89,9 +89,14 @@ Crear una entidad que representa un objeto de dominio dentro de un dominio de Ev
    - Si el archivo `index.mdx` ya contiene un array `entities`, agregar la entidad al final del array.
    - Si el archivo `index.mdx` no contiene un array `entities`, crearlo después de la propiedad `summary` con la entidad.
 
-6. Invitar al usuario a documentar las propiedades de la entidad:
-   -  Crear propiedades en el frontmatter del archivo `index.mdx` de la entidad con las propiedades especificadas.
-   - Permitir configurar relaciones entre entidades usando `references`, `relationType` y `referencesIdentifier`.
+6. OBLIGATORIO - Solicitar las propiedades de la entidad:
+   - OBLIGATORIO: Preguntar explícitamente "¿Qué propiedades debe tener la entidad {nombre-entidad}?"
+   - NUNCA asumir propiedades basadas en otros elementos o contexto
+   - ESPERAR respuesta completa del usuario antes de continuar
+   - Para cada propiedad proporcionada por el usuario, preguntar: nombre exacto, tipo de dato, si es requerida, descripción detallada
+   - Crear propiedades en el frontmatter del archivo `index.mdx` de la entidad con las propiedades especificadas por el usuario
+   - Si el usuario menciona objetos complejos anidados, crear entidades separadas para cada uno usando este mismo spec
+   - Permitir configurar relaciones entre entidades usando `references`, `relationType` y `referencesIdentifier`
    - Ejemplos de relaciones:
      - Para una relación uno a muchos:
        ```yaml
@@ -117,3 +122,10 @@ Crear una entidad que representa un objeto de dominio dentro de un dominio de Ev
               referencesIdentifier: Id
               relationType: hasOne
           ```
+
+7. Validación final:
+   - Confirmar con el usuario que todos los pasos se completaron correctamente
+   - Listar todos los archivos creados para verificación:
+     - Archivo de la entidad: `{Entity Directory}/index.mdx`
+     - Registro en dominio actualizado
+   - Solo marcar como completado si el usuario confirma explícitamente

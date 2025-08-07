@@ -65,18 +65,25 @@ Crear un comando que es recibido por un CommandHandler dentro de un subdominio d
     - Si el archivo `index.mdx` ya contiene un array `receives`, agregar el `nombre-comando` al final del array.
     - Si el archivo `index.mdx` no contiene un array `receives`, crearlo después de la propiedad `summary` con el comando.
 
-5. Invitar al usuario a documentar las propiedades del comando:
-   - Todos los comandos deben tener una propiedad con el id del aggregate root que se muta con la aplicación del comando. Esa propiedad debe corresponder al tipo de datos del id del aggregate root y su nombre debe ser `id{aggregate-root-name}`. Por ejemplo, si el aggregate root es `Pedido`, la propiedad debe ser `idPedido`.
-   - Preguntar al usuario si el comando tiene propiedades adicionales que deben documentarse.
-   - Si el usuario responde afirmativamente, invitarlo a documentar las propiedades del comando:
-   - Preguntar por cada propiedad su nombre, tipo de dato y una breve descripción.
+5. Solicitar las propiedades del comando:
+   - OBLIGATORIO: Preguntar explícitamente "¿Qué propiedades debe tener el comando {nombre-comando}?"
+   - NUNCA asumir que las propiedades son iguales al evento relacionado o a cualquier otro elemento
+   - ESPERAR respuesta completa del usuario antes de continuar
+   - Todos los comandos deben tener una propiedad con el id del aggregate root que se muta con la aplicación del comando. Esa propiedad debe corresponder al tipo de datos del id del aggregate root y su nombre debe ser `Id{aggregate-root-name}`. Por ejemplo, si el aggregate root es `Pedido`, la propiedad debe ser `IdPedido`.
+   - Para cada propiedad proporcionada por el usuario, preguntar: nombre exacto, tipo de dato, si es requerida, descripción detallada.
+   - Si el usuario menciona objetos complejos, anotar sus nombres para el siguiente paso.
 
-   - Si existe una propiedad que sea un objeto complejo, se debe verificar si existe en las entidades.
-     - Si no existe, se debe crear una entidad con `aggregateRoot` `false` usando `crear-entidad.md` y documentar las propiedades de esa entidad.
-     - Si existe, use las reglas de `documentar-propiedades-entidad.md` con las propiedades de la entidad existente, para documentar las propiedades del objeto complejo usado dentro del comando.
-   - Documentar el resto de las propiedades del `mensaje` usando las reglas de `documentar-propiedades-comando.md`.
+5.1. OBLIGATORIO - Por cada objeto complejo identificado en las propiedades del comando:
+   - DETENER el workflow actual
+   - Verificar si existe como entidad en el subdominio usando LS
+   - Si NO existe:
+     - Ejecutar COMPLETAMENTE el spec `crear-entidad.md` para crear la entidad con `aggregateRoot: false`
+     - ESPERAR confirmación de que la entidad fue creada exitosamente
+     - Solicitar al usuario todas las propiedades de esta entidad objeto complejo
+   - Repetir este proceso para CADA objeto complejo antes de continuar
+   - Solo continuar al siguiente paso cuando TODAS las entidades de objetos complejos estén creadas
 
-7. Crear el archivo de especificación del comando:
+6. Crear el archivo de especificación del comando:
    - Crear el archivo `index.mdx` dentro de la **Command Directory**.
    - La versión inicial debe ser `0.0.1`.
    - Sugerir un summary para el comando basado en el nombre del comando y la aplicación. El usuario lo puede aceptar o modificar.
@@ -99,4 +106,27 @@ Crear un comando que es recibido por un CommandHandler dentro de un subdominio d
 
    <SchemaViewer file="schema.avro" />
         
-   ```  
+   ```
+   - Crear el archivo `schema.avro` correspondiente con todas las propiedades especificadas por el usuario.
+
+7. Solicitar las reglas de validación del comando distintas a tipos de datos:
+   - Preguntar al usuario si el comando tiene reglas de validación adicionales.
+   - No se deben incluir validaciones de tipo de dato, ya que estas se manejan automáticamente por el esquema Avro.
+   - Si el usuario responde afirmativamente, Solicitar las reglas de validación del comando.
+   - Las reglas de validación deben ser documentadas en la sección `## Guards` del archivo `index.mdx` del comando. Esta sección debe estar debajo de la sección `## Properties`.
+   - Las reglas de validación deben ser expresadas como una lista de verificación, por ejemplo:
+     ```mdx
+     ## Guards
+     - La propiedad `cantidad` debe ser mayor a 0.
+     - La propiedad `fechaEntrega` debe ser una fecha futura.
+     ```
+
+   - Si el usuario no responde afirmativamente, continuar con el siguiente paso.
+
+8. Validación final:
+   - Confirmar con el usuario que todos los pasos se completaron correctamente
+   - Listar todos los archivos creados para verificación:
+     - Archivo del comando: `{Command Directory}/index.mdx`
+     - Schema del comando: `{Command Directory}/schema.avro`
+     - Todas las entidades de objetos complejos creadas
+   - Solo marcar como completado si el usuario confirma explícitamente

@@ -66,25 +66,31 @@ Crear un evento que es emitido por un CommandHandler dentro de un subdominio de 
     - Si el archivo `index.mdx` ya contiene un array `sends`, agregar el `nombre-evento` al final del array.
     - Si el archivo `index.mdx` no contiene un array `sends`, crearlo después de la propiedad `summary` con el evento.
 
-6. Invitar al usuario a documentar las propiedades del evento:
-   - Todas los eventos deben tener una propiedad con el id del agregate root que se muta con la aplicación del evento. Esa propiedad debe corresponder al tipo de datos del id del aggregate root y su nombre debe ser `id{aggregate-root-name}`. Por ejemplo, si el aggregate root es `Pedido`, la propiedad debe ser `idPedido`.
-   - Preguntar al usuario si el evento tiene propiedades adicionales que deben documentarse.
-   - Si el usuario responde afirmativamente, invitarlo a documentar las propiedades del evento:
-   - Preguntar por cada propiedad su nombre, tipo de dato y una breve descripción.
+6. Solicitar las propiedades del evento:
+   - OBLIGATORIO: Preguntar explícitamente "¿Qué propiedades debe tener el evento {nombre-evento}?"
+   - NUNCA asumir propiedades basadas en otros elementos
+   - ESPERAR respuesta completa del usuario antes de continuar
+   - Todas los eventos deben tener una propiedad con el id del agregado root que se muta con la aplicación del evento. Esa propiedad debe corresponder al tipo de datos del id del aggregate root y su nombre debe ser `Id{aggregate-root-name}`. Por ejemplo, si el aggregate root es `Pedido`, la propiedad debe ser `IdPedido`.
+   - Para cada propiedad proporcionada por el usuario, preguntar: nombre exacto, tipo de dato, si es requerida, descripción detallada.
+   - Si el usuario menciona objetos complejos, anotar sus nombres para el siguiente paso.
 
-   - Si existe una propiedad que sea un objeto complejo, se debe verificar si existe en las entidades.
-     - Si no existe, se debe crear una entidad con `aggregateRoot` `false` usando `crear-entidad.md` y documentar las propiedades de esa entidad.
-     - Si existe, use las reglas de `documentar-propiedades-entidad.md` con las propiedades de la entidad existente, para documentar las propiedades del objeto complejo usado dentro del evento.
-   - Documentar el resto de las propiedades del `mensaje` usando las reglas de `documentar-propiedades-evento.md`.
+7. OBLIGATORIO - Por cada objeto complejo identificado en las propiedades del evento:
+   - DETENER el workflow actual
+   - Verificar si existe como entidad en el subdominio usando LS
+   - Si NO existe:
+     - Ejecutar COMPLETAMENTE el spec `crear-entidad.md` para crear la entidad con `aggregateRoot: false`
+     - ESPERAR confirmación de que la entidad fue creada exitosamente
+     - Solicitar al usuario todas las propiedades de esta entidad objeto complejo
+   - Repetir este proceso para CADA objeto complejo antes de continuar
+   - Solo continuar al siguiente paso cuando TODAS las entidades de objetos complejos estén creadas
 
-7. Solicitar al usuario las propiedades del agregado que va a afectar el evento:
+9. Solicitar al usuario las propiedades del agregado que va a afectar el evento:
    - Preguntar al usuario el nombre del aggregate root que se muta con la aplicación del evento.
    - Buscar en las entidades del dominio si existe una entidad marcada con `aggregateRoot` `true` con el nombre del agregado.
    - Si no existe, se debe crear una entidad con `aggregateRoot` `true` usando `crear-entidad.md` y documentar las propiedades de esa entidad.
-   - Si existe, usar las reglas de `documentar-propiedades-entidad.md` con las propiedades que no estén documentadas en el agregado.
    - En el archivo `index.mdx` del evento, agregar un unordered list dentro de la sección  `State mutetions` con las propiedades afectadas.
  
- 8. Crear el archivo de especificación del evento:
+ 10. Crear el archivo de especificación del evento:
    - Crear el archivo `index.mdx` dentro de la **Event Directory**.
    - La versión inicial debe ser `0.0.1`.
    - Sugerir un summary para el evento basado en el nombre del evento y la aplicación. El usuario lo puede aceptar o modificar.
@@ -112,4 +118,14 @@ Crear un evento que es emitido por un CommandHandler dentro de un subdominio de 
 
    <SchemaViewer file="schema.avro" />
         
-   ```  
+   ```
+   - Crear el archivo `schema.avro` correspondiente con todas las propiedades especificadas por el usuario.
+
+11. Validación final:
+   - Confirmar con el usuario que todos los pasos se completaron correctamente
+   - Listar todos los archivos creados para verificación:
+     - Archivo del evento: `{Event Directory}/index.mdx`
+     - Schema del evento: `{Event Directory}/schema.avro`
+     - Todas las entidades de objetos complejos creadas
+     - Entidad del aggregate root (si fue creada)
+   - Solo marcar como completado si el usuario confirma explícitamente

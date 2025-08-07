@@ -87,3 +87,17 @@ Crear un CommandHandler que se registre como un servicio dentro de un subdominio
         ```
     - Si el archivo `index.mdx` ya contiene un array `services`, agregar el `nombre-commandHandler` al final del array.
     - Si el archivo `index.mdx` no contiene un array `services`, crearlo después de la propiedad `summary`.
+6. Solicitar al usuario los business rules que deban ser consideradas por el CommandHandler:
+   - Preguntar al usuario si el CommandHandler tiene business rules que deben documentarse.
+   - Si el usuario responde afirmativamente, solicitarle las business rules del CommandHandler:
+     - Preguntar por cada regla su descripción y cualquier detalle relevante.
+   - Documentar las business rules en la sección `## Business Rules` del archivo `index.mdx` del CommandHandler, la cual se debe crear si no existe inmediatamente después de la sección `## Overview` y antes del tag `<NodeGraph />`.
+   - Si el archivo `index.mdx` ya contiene una sección `## Business Rules`, agregar las nuevas reglas al final de la sección.
+   - Registrar las reglas de negocio en el archivo `index.mdx` del CommandHandler de la siguiente manera:
+     ```mdx
+     ## Business Rules
+
+     - {descripción-regla-1}
+     - {descripción-regla-2}
+     ...
+     ``` 
