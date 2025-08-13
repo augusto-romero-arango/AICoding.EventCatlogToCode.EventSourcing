@@ -50,7 +50,14 @@ Crear un CommandHandler que se registre como un servicio dentro de un subdominio
 4. Crear el archivo de especificación del CommandHandler:
    - Crear el archivo `index.mdx` dentro de la **Service Directory (CommandHandler)**.
    - La versión inicial debe ser `0.0.1`.
-   - Sugerir un summary para el CommandHandler basado en el nombre del CommandHandler y la aplicación. El usuario lo puede aceptar o modificar.
+   - Generar un summary contextualizado para el CommandHandler:
+     - Si se proporciona el parámetro "Summary" con instrucciones de generación contextual, analizar:
+       - Dominio y subdominio donde opera
+       - Comando que recibirá y evento que producirá
+       - Business rules y guards que implementará
+       - AggregateRoot que modificará
+     - Redactar un summary específico que explique la responsabilidad completa del handler
+     - Si no se proporciona contexto específico, sugerir basándose en el nombre y permitir modificación
    - El contenido del archivo debe ser:
         ```mdx
         ---

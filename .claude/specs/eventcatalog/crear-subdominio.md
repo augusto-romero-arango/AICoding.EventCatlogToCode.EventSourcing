@@ -6,7 +6,6 @@ Crear un subdominio dentro de un dominio en EventCatalog para una aplicación ex
 
 ## Mid-level objectives
 - Verificar que exista una aplicación creada.
-- Verificar que exista un EventCatalog para la aplicación.
 - Verificar que exista el dominio padre del subdominio dentro del EventCatalog de la aplicación.
 - Crear un subdominio dentro del EventCatalog de la aplicación.
 

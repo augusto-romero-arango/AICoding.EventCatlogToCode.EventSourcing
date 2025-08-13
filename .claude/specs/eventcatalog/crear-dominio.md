@@ -34,7 +34,7 @@ Crear un dominio en EventCatalog para una aplicación existente.
    - Capturar el nombre de la aplicación del prompt y normalizarlo según las reglas de **Application Names** en directory-structure.md.
    - Verificar que existe la **EventCatalog Root** para la aplicación.
    - Si no se encuentra, abortar la operación y mostrar un mensaje de error al usuario.
-   - Guardar en la variable `{ruta-catalogo}` la **EventCatalog Root** encontrada.
+
 
 2. Verificar que el directorio de dominios exista
    - Verificar que existe la **Domains Root**. En caso que no exista, crear el directorio.
@@ -47,11 +47,11 @@ Crear un dominio en EventCatalog para una aplicación existente.
    - Si el nombre del dominio ya existe en la **Domains Root**, abortar la operación y mostrar un mensaje de error al usuario.
   
 4. Crear el directorio del dominio
-   - Crear la **Domain Directory** para `{nombre-dominio}`.
+   - Crear **Domain Directory** para `{nombre-dominio}`.
    
   
 5. Crear el archivo de especificación del dominio
-   - Crear el archivo `index.mdx` dentro de la **Domain Directory**.
+   - Crear el archivo `index.mdx` dentro de **Domain Directory**.
    - La versión inicial debe ser `0.0.1`.
    - Sugiere un summary para el dominio basado en el nombre del dominio y la aplicación. El usuario lo puede aceptar o modificar.
    - El summary debe ser una descripción breve del dominio y su propósito dentro de la aplicación.

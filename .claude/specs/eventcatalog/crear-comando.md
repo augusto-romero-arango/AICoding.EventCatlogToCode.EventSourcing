@@ -71,22 +71,20 @@ Crear un comando que es recibido por un CommandHandler dentro de un subdominio d
    - ESPERAR respuesta completa del usuario antes de continuar
    - Todos los comandos deben tener una propiedad con el id del aggregate root que se muta con la aplicación del comando. Esa propiedad debe corresponder al tipo de datos del id del aggregate root y su nombre debe ser `Id{aggregate-root-name}`. Por ejemplo, si el aggregate root es `Pedido`, la propiedad debe ser `IdPedido`.
    - Para cada propiedad proporcionada por el usuario, preguntar: nombre exacto, tipo de dato, si es requerida, descripción detallada.
-   - Si el usuario menciona objetos complejos, anotar sus nombres para el siguiente paso.
-
-5.1. OBLIGATORIO - Por cada objeto complejo identificado en las propiedades del comando:
-   - DETENER el workflow actual
-   - Verificar si existe como entidad en el subdominio usando LS
-   - Si NO existe:
-     - Ejecutar COMPLETAMENTE el spec `crear-entidad.md` para crear la entidad con `aggregateRoot: false`
-     - ESPERAR confirmación de que la entidad fue creada exitosamente
-     - Solicitar al usuario todas las propiedades de esta entidad objeto complejo
-   - Repetir este proceso para CADA objeto complejo antes de continuar
-   - Solo continuar al siguiente paso cuando TODAS las entidades de objetos complejos estén creadas
+   - IMPORTANTE: Los comandos SOLO pueden usar tipos primitivos (string, int, decimal, boolean, datetime, guid). Si el usuario menciona objetos complejos, informar que deben ser aplanados a tipos primitivos y solicitar las propiedades primitivas equivalentes.
 
 6. Crear el archivo de especificación del comando:
    - Crear el archivo `index.mdx` dentro de la **Command Directory**.
    - La versión inicial debe ser `0.0.1`.
-   - Sugerir un summary para el comando basado en el nombre del comando y la aplicación. El usuario lo puede aceptar o modificar.
+   - Generar un summary contextualizado para el comando:
+     - Si se proporciona el parámetro "Summary" con instrucciones de generación contextual, analizar:
+       - Propiedades del comando y su propósito de negocio
+       - Guards y validaciones que debe cumplir
+       - Business rules que implementa
+       - AggregateRoot objetivo que modificará
+       - Dominio y subdominio de contexto
+     - Redactar un summary específico que explique la acción de negocio y validaciones
+     - Si no se proporciona contexto específico, sugerir basándose en el nombre y permitir modificación
    - El contenido del archivo debe ser:
    ```mdx
    ---
@@ -95,6 +93,9 @@ Crear un comando que es recibido por un CommandHandler dentro de un subdominio d
    version: 0.0.1
    summary: |
       {summary}
+
+
+   schemaPath: 'schema.avro'
    ---
    
    ## Overview

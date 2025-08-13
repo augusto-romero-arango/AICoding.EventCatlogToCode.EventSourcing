@@ -4,6 +4,8 @@ Crea un comando en la sección commands del commandHandler de EventCatalog dentr
 **Nombre commandHandler:** $ARGUMENTS
 **Nombre subdominio:** $ARGUMENTS
 **Nombre dominio:** $ARGUMENTS
+**Propiedades:** $ARGUMENTS
+**Guards:** $ARGUMENTS
 **Summary:** $ARGUMENTS
 
 ## Pasos a seguir
@@ -13,3 +15,6 @@ Crea un comando en la sección commands del commandHandler de EventCatalog dentr
 3. Si no existe, sugerir al usuario los commandHandlers disponibles y solicitarle que seleccione uno o que aborte la operación.
 4. Sugerir el nombre del comando a partir del `Nombre commandHandler` removiendo el sufijo "CommandHandler", por ejemplo: si el commandHandler es `CrearPedidoCommandHandler`, sugerir `CrearPedido`.
 5. Crear el comando `Nombre comando` dentro del commandHandler `Nombre commandHandler` que está en el subdominio `Nombre subdominio` del dominio `Nombre dominio` del EventCatalog de la aplicación `Nombre aplicacion` usando `.\.claude\specs\eventcatalog\crear-comando.md`.
+   - Si se proporcionan `Propiedades`: Usar estas propiedades en lugar de solicitarlas interactivamente en el paso 5 de la spec.
+   - Si se proporcionan `Guards`: Usar estos guards en lugar de solicitarlos interactivamente en el paso 7 de la spec.
+   - Pasar todos los argumentos disponibles a la spec para evitar preguntas redundantes.
