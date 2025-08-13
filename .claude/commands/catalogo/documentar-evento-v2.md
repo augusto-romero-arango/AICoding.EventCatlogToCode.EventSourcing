@@ -64,11 +64,27 @@ Validación: No debe estar vacío, se normalizará automáticamente
 
 #### c) **--aggregateroot** (si falta)
 ```
-Pregunta: "¿Cuál es el **AggregateRoot** que modifica este evento {evento}?"
-Validación: 
-- No debe estar vacío
-- Se normalizará automáticamente
-- Se validará/creará posteriormente
+1. **Buscar AggregateRoots existentes en el subdominio:**
+   - Buscar en `{aplicacion}/{aplicacion}-catalog/domains/{dominio}/subdomains/{subdominio}/entities/`
+   - Identificar entidades con `aggregateRoot: true`
+   - Crear lista de AggregateRoots disponibles
+
+2. **Presentar opciones al usuario:**
+   - **Si existen AggregateRoots**: 
+     Pregunta: "¿Cuál **AggregateRoot** modifica el evento {evento}?"
+     Opciones:
+     1. {AggregateRoot1}
+     2. {AggregateRoot2}
+     3. [Otro AggregateRoot específico]
+     "Selecciona el número del AggregateRoot existente o escribe el nombre del nuevo AggregateRoot a crear:"
+   
+   - **Si NO existen AggregateRoots**:
+     Pregunta: "No se encontraron AggregateRoots en el subdominio {subdominio}. ¿Cuál es el **AggregateRoot** que modifica este evento {evento}?"
+
+3. **Validación:**
+   - Si selecciona un AggregateRoot existente: usar directamente
+   - Si especifica un nombre nuevo: validar que no esté vacío y normalizar
+   - Se validará/creará posteriormente según corresponda
 ```
 
 
