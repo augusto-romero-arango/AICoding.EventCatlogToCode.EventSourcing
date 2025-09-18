@@ -11,7 +11,7 @@
 
 ## Implementation Notes
 
-- Normalizar el nombre de la solución.
+- Normalizar el nombre de la solución en PascalCase.
 - Debe verificar que esté instalado el SDK de .NET 9.
 - Debe verificar que tenga acceso al feed de de nuget `https://pkgs.dev.azure.com/sincosoftsascosmos/Nugets/_packaging/Cosmos.Packages/nuget/v3/index.json`
 - En caso que la conexión al feed falle con error Forbidden. Recuerdele al usuario que debe registrar su Personal Access Token (PAT) en su configuración de NuGet.
@@ -55,18 +55,7 @@ Ejecutar en paralelo:
 - Template "cosmos-eventsourcing" debe aparecer en la lista
 - Feed Cosmos debe estar en la lista de sources de NuGet
 
-### 2. Normalizar el nombre de la solución
-
-**Instrucciones optimizadas:**
-```
-Aplicar transformaciones al nombre en este orden exacto:
-1. trim() - eliminar espacios inicio/fin
-2. toLowerCase() - convertir a minúsculas
-3. replace(/\s+/g, '_') - espacios a guiones bajos
-4. replace(/[áàäâ]/g, 'a').replace(/[éèëê]/g, 'e').replace(/[íìïî]/g, 'i').replace(/[óòöô]/g, 'o').replace(/[úùüû]/g, 'u')
-5. replace(/ñ/g, 'n')
-6. replace(/[^a-z0-9_]/g, '') - eliminar caracteres especiales
-```
+### 2. Normalizar el nombre de la solución en PascalCase
 
 ### 3. Verificar que no exista una solución con el nombre normalizado
 

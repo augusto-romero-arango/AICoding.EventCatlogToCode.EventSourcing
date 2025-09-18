@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This repository contains a hybrid project combining EventCatalog documentation with a .NET event-sourced application template:
 
 - **EventCatalog Documentation**: Located in `{application-name}/{application-name}-catalog/` directories
-- **.NET Solution**: Located in `{application-name}/src/{solution-name}/` directories
+- **.NET Solution**: Located in `{application-name}/src/{SolutionName}/` directories
 - **Claude Commands**: Custom slash commands in `.claude/commands/` for EventCatalog operations
 - **Specifications**: Detailed implementation specs in `.claude/specs/eventcatalog/` for domain creation
 

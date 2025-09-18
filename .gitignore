@@ -4,3 +4,7 @@ bin/
 obj/
 *.log
 ejemplo_aplicacion/
+
+wallet/
+cosmos/
+.DS_Store

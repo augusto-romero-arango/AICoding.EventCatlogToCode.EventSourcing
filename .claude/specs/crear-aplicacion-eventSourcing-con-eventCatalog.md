@@ -37,32 +37,10 @@ Crear el esqueleto para una aplicación que implemente un EventCatalog y a parti
     - Se deben limpiar los espacios iniciales y finales.
     - El nombre normalizado debe guardarse en memoria con la variable `nombre-aplicacion`.
   
-3. Crear los directorios necesarios:
-      
-   ```bash
-   #!/bin/bash
-
-   # Variables
-   NOMBRE_APLICACION="[nombre-aplicacion]"
-   NOMBRE_APLICACION_ORIGINAL="[nombre-aplicacion-original]"
-
-   # Step 2: Create application directory
-   if [ -d "./${NOMBRE_APLICACION}" ]; then
-      echo "Error: El directorio './${NOMBRE_APLICACION}' ya existe. Abortando operación."
-      exit 1
-   else
-      mkdir "./${NOMBRE_APLICACION}"
-      echo "Directorio './${NOMBRE_APLICACION}' creado exitosamente."
-   fi
-
-   # Step 3: Create src directory
-   if [ -d "./${NOMBRE_APLICACION}/src" ]; then
-      echo "Aviso: El directorio 'src' ya existe. Continuando al siguiente paso."
-   else
-      mkdir "./${NOMBRE_APLICACION}/src"
-      echo "Directorio 'src' creado exitosamente."
-   fi
-   ```
+3. Crear los directorios necesarios, el scaffolding debe quedar así:
+   {nombre-aplicacion}/
+   ├── src/
+   └── {nombre-aplicacion}-catalog/
 
 4. Instalar EventCatalog:
    1. Instalar en el directorio {nombre-aplicacion} una aplicación con el nombre `{nombre-aplicacion}-catalog` usando el archivo de especificación `.claude\specs\instalar-eventcatalog.md`.
