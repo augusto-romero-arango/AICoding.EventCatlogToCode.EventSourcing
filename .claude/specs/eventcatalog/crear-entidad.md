@@ -84,6 +84,7 @@ Crear una entidad que representa un objeto de dominio dentro de un subdominio de
    - Crear propiedades en el frontmatter del archivo `index.mdx` de la entidad con las propiedades especificadas por el usuario
    - Si el usuario menciona objetos complejos anidados, crear entidades separadas para cada uno usando este mismo spec
    - Permitir configurar relaciones entre entidades usando `references`, `relationType` y `referencesIdentifier`
+   - Importante: Las descripciones de las propiedades no pueden usar los caracteres reservados de la sintaxis yaml.
    - Ejemplos de relaciones:
      - Para una relación uno a muchos:
        ```yaml
