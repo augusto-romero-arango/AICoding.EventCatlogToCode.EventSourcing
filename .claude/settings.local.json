@@ -7,7 +7,21 @@
       "Bash(dotnet --version)",
       "Bash(dotnet new:*)",
       "Bash(dotnet nuget list:*)",
-      "Bash(dotnet build:*)"
+      "Bash(dotnet build:*)",
+      "Bash(if [ -d \"./cosmos/src\" ])",
+      "Bash(then echo \"Aviso: El directorio ''src'' ya existe. Continuando al siguiente paso.\")",
+      "Bash(else mkdir \"./cosmos/src\")",
+      "Bash(fi)",
+      "Bash(npm install:*)",
+      "Bash(devcontainer up:*)",
+      "Bash(devcontainer exec:*)",
+      "Bash(then)",
+      "Bash(else)",
+      "Bash(if [ -d \"./cosmos\" ])",
+      "Bash(then echo \"Error: El directorio ''./cosmos'' ya existe. Abortando operación.\")",
+      "Bash(exit 1)",
+      "Bash(else mkdir \"./cosmos\")",
+      "Bash(docker:*)"
     ],
     "deny": []
   }
