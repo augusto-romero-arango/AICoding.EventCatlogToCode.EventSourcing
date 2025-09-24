@@ -38,7 +38,7 @@ Crear el esqueleto para una aplicación que implemente un EventCatalog y a parti
     - El nombre normalizado debe guardarse en memoria con la variable `nombre-aplicacion`.
   
 3. Crear los directorios necesarios:
-      
+
    ```bash
    #!/bin/bash
 
@@ -65,4 +65,4 @@ Crear el esqueleto para una aplicación que implemente un EventCatalog y a parti
    ```
 
 4. Instalar EventCatalog:
-   1. Instalar en el directorio {nombre-aplicacion} una aplicación con el nombre `{nombre-aplicacion}-catalog` usando el archivo de especificación `.claude\specs\instalar-eventcatalog.md`.
+   1. Instalar en el directorio {nombre-aplicacion} una aplicación con el nombre `{nombre-aplicacion}-catalog` usando el archivo de especificación `.claude\specs\instalar-eventcatalog-sin-devcontainer.md`.

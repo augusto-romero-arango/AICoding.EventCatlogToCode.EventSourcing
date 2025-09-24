@@ -2,7 +2,21 @@
   "permissions": {
     "allow": [
       "Bash(mkdir:*)",
-      "Bash(/claude:*)"
+      "Bash(/claude:*)",
+      "Bash(if [ -d \"./cosmos/src\" ])",
+      "Bash(then echo \"Aviso: El directorio ''src'' ya existe. Continuando al siguiente paso.\")",
+      "Bash(else mkdir \"./cosmos/src\")",
+      "Bash(fi)",
+      "Bash(npm install:*)",
+      "Bash(devcontainer up:*)",
+      "Bash(devcontainer exec:*)",
+      "Bash(then)",
+      "Bash(else)",
+      "Bash(if [ -d \"./cosmos\" ])",
+      "Bash(then echo \"Error: El directorio ''./cosmos'' ya existe. Abortando operación.\")",
+      "Bash(exit 1)",
+      "Bash(else mkdir \"./cosmos\")",
+      "Bash(docker:*)"
     ],
     "deny": []
   }
