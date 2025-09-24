@@ -13,9 +13,6 @@
 
 - Normalizar el nombre de la solución en PascalCase.
 - Debe verificar que esté instalado el SDK de .NET 9.
-- Debe verificar que tenga acceso al feed de de nuget `https://pkgs.dev.azure.com/sincosoftsascosmos/Nugets/_packaging/Cosmos.Packages/nuget/v3/index.json`
-- En caso que la conexión al feed falle con error Forbidden. Recuerdele al usuario que debe registrar su Personal Access Token (PAT) en su configuración de NuGet.
-- Debe verificar que la variable de entorno `COSMOS_FEED_PAT` esté configurada. En caso que no lo esté debe darle la siguiente instrucción al usuario: "Por favor en el archivo .env, configure la variable de entorno `COSMOS_FEED_PAT` con su Personal Access Token (PAT)"
 - Debe verificar que la solución no exista antes de crearla. Si hay soluciones con un nombre similar, debe mostrarle las que podrían ser una posible coincidencia y solicitarle aprobación antes de continuar.
 - Si solicitan crear más de una solución, cada solución se debe crear secuencialmente, es decir, debe realizar los Low-Level Tasks completos para una solución antes de seguir con la siguiente. En caso de un error en una solución, debe sugerir al usuario corregir el error o continuar con la siguiente solución.
 
@@ -42,16 +39,12 @@
 ```
 Ejecutar en paralelo:
 - Bash: dotnet --version
-- Read: .env (verificar COSMOS_FEED_PAT)
-- Read: .gitignore (verificar que contenga .env)
 - Bash: dotnet new list | grep -i cosmos
 - Bash: dotnet nuget list source
 ```
 
 **Validaciones:**
 - SDK .NET 9 debe estar instalado (output: 9.x.xxx)
-- Variable COSMOS_FEED_PAT debe existir en .env
-- .gitignore debe contener .env
 - Template "cosmos-eventsourcing" debe aparecer en la lista
 - Feed Cosmos debe estar en la lista de sources de NuGet
 
