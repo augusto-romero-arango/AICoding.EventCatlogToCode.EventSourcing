@@ -33,6 +33,7 @@ Crea un un evento en la sección events del commandHandler de EventCatalog dentr
 ### 3. Generación del evento
 - Sugerir el nombre del evento a partir del `Nombre commandHandler` usando el participio pasado del nombre del commandHandler, por ejemplo: si el commandHandler es `CrearPedidoCommandHandler`, sugerir `PedidoCreado`
 - Crear el evento `Nombre evento` dentro del commandHandler `Nombre commandHandler` que está en el subdominio `Nombre subdominio` del dominio `Nombre dominio` del EventCatalog de la aplicación `Nombre aplicacion` usando `.\.claude\specs\eventcatalog\crear-evento.md`
+   - **REFERENCIA**: Ver `.\.claude\specs\eventcatalog\avro-schema-format.md` para el formato exacto del schema.
 
 ## ⚠️ REGLAS DE EJECUCIÓN
 

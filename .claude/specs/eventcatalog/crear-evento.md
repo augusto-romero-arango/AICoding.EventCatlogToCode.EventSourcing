@@ -118,6 +118,22 @@ Crear un evento que es emitido por un CommandHandler dentro de un subdominio de 
         
    ```
    - Crear el archivo `schema.avro` correspondiente con todas las propiedades especificadas por el usuario.
+   - **IMPORTANTE**: El archivo `schema.avro` debe contener un esquema JSON de Avro (no formato binario), siguiendo la especificación Apache Avro JSON Schema.
+   - El esquema debe seguir esta estructura:
+     ```json
+     {
+       "type": "record",
+       "name": "{nombre-evento}",
+       "namespace": "{aplicacion}.{dominio}.{subdominio}",
+       "fields": [
+         {
+           "name": "propiedad",
+           "type": "tipo",
+           "doc": "descripción de la propiedad"
+         }
+       ]
+     }
+     ```
 
 9. Validación final:
    - Verificar automáticamente que todos los pasos se completaron correctamente

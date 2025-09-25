@@ -109,6 +109,22 @@ Crear un comando que es recibido por un CommandHandler dentro de un subdominio d
         
    ```
    - Crear el archivo `schema.avro` correspondiente con todas las propiedades especificadas por el usuario.
+   - **IMPORTANTE**: El archivo `schema.avro` debe contener un esquema JSON de Avro (no formato binario), siguiendo la especificación Apache Avro JSON Schema.
+   - El esquema debe seguir esta estructura:
+     ```json
+     {
+       "type": "record",
+       "name": "{nombre-comando}",
+       "namespace": "{aplicacion}.{dominio}.{subdominio}.commands",
+       "fields": [
+         {
+           "name": "propiedad",
+           "type": "tipo",
+           "doc": "descripción de la propiedad"
+         }
+       ]
+     }
+     ```
 
 7. Solicitar las reglas de validación del comando distintas a tipos de datos:
    - Preguntar al usuario si el comando tiene reglas de validación adicionales.

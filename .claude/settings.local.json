@@ -21,7 +21,27 @@
       "Bash(then echo \"Error: El directorio ''./cosmos'' ya existe. Abortando operación.\")",
       "Bash(exit 1)",
       "Bash(else mkdir \"./cosmos\")",
-      "Bash(docker:*)"
+      "Bash(docker:*)",
+      "Bash(if [ -d \"./Financiero\" ])",
+      "Bash(then echo \"Application directory exists\")",
+      "Bash(else echo \"ERROR: Application directory ''./Financiero'' does not exist. Aborting operation.\")",
+      "Bash(then echo \"Cosmos application with src directory exists\")",
+      "Bash(else echo \"ERROR: Cosmos application src directory does not exist. Aborting operation.\")",
+      "Bash(else echo \"ERROR: Application directory ''./cosmos'' does not exist. Aborting operation.\")",
+      "Bash(if [ -d \"./cosmos/cosmos-catalog\" ])",
+      "Bash(then echo \"EventCatalog directory exists\")",
+      "Bash(else echo \"ERROR: EventCatalog directory ''./cosmos/cosmos-catalog'' does not exist. Aborting operation.\")",
+      "Bash(if [ -d \"./cosmos/cosmos-catalog/domains\" ])",
+      "Bash(then echo \"Domains directory exists\")",
+      "Bash(else echo \"Creating domains directory\")",
+      "Bash(if [ -d \"./cosmos/cosmos-catalog/domains/financiero\" ])",
+      "Bash(then echo \"ERROR: Domain ''financiero'' already exists. Aborting operation.\")",
+      "Bash(else echo \"Domain ''financiero'' does not exist, proceeding with creation\")",
+      "Bash(if [ -d \"./cosmos/cosmos-catalog/domains/financiero/subdomains/contabilidad_general\" ])",
+      "Bash(if [ -d \"./cosmos/cosmos-catalog/domains/financiero/subdomains/contabilidad_general/entities/BorradorContable\" ])",
+      "Bash(then echo \"AggregateRoot BorradorContable exists\")",
+      "Bash(else echo \"AggregateRoot BorradorContable does not exist, creating it\")",
+      "Bash(cat:*)"
     ],
     "deny": []
   }
