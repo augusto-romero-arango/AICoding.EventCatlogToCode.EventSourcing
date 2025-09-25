@@ -91,7 +91,7 @@
         );
 
         // 5. Aplicar el evento al aggregate
-        eventStore.AppendEvent(evento);
+        eventStore.AppendEvent(command.[IdPropiedad], evento);
     }
     ```
 

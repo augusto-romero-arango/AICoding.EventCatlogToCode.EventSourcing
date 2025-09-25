@@ -6,7 +6,7 @@
 
 ## Mid-Level Objective
 
-- Escribir una prueba unitaria por cada bussiness rule
+- Escribir una prueba unitaria por cada business rule
 - Escribir una prueba unitaria por cada guard
 - Escribir una prueba unitaria por cada evento emitido y cambios en propiedades en el AggregateRoot
 
@@ -53,7 +53,7 @@
     - Evento
     - Comando
     - CommandHandler
-- Para el CommandHandler encontrar los bussines rules
+- Para el CommandHandler encontrar los business rules
 - Para el comando encontrar los guards
 - En la seccion State Mutations del evento encontrar que propiedades del aggregate root que son modificadas
 
@@ -78,14 +78,14 @@
 - La primera prueba debe ser verificar que el evento sea emitido y que el aggregate root sea afectado. Con las siguientes instrucciones:
     - Usar Given, When, Then y And por cada propiedad que el evento modifique del paquete:
     ```c#
-        Given([eventos previos que debieron haber sido emitidos generalmente de los bussines rules]);
+        Given([eventos previos que debieron haber sido emitidos generalmente de los business rules]);
 
         await WhenAsync([comando]);
 
         Then([eventos esperados]);
         [...And<[AggregateRoot], [tipo de dato de la propiedad a evaluar]>(aggregate => aggregate.[propiedad], [valor esperado]);]
     ```
-- Las siguientes pruebas que se escriban, deben ser los guards y los bussines rules.
+- Las siguientes pruebas que se escriban, deben ser los guards y los business rules.
 - Las pruebas que son validaciones de existencias (por ejemplo validar si existe el aggregate id) deben arrojar un error.
 - Las pruebas que son de inconsistencias en el aggregate root debe ser un evento de error.
 
@@ -156,3 +156,12 @@
 - Si alguna de las propiedades del aggregate root son value objects crearlos en el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Entidades/*.cs`
 
 ### 3. Garantizar que la solución compile **SIN** implementar el código para que las pruebas pasen (Estado en rojo 🔴).
+
+
+## Validation Checklist
+
+- [ ] Todas las pruebas unitarias no pasan
+- [ ] El solution compila sin errores
+- [ ] Todos los business rules están cubiertos
+- [ ] Todos los guards están cubiertos
+- [ ] El código sigue las mejores prácticas y sintaxis moderna de C#
