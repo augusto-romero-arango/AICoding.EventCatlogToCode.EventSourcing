@@ -21,6 +21,7 @@
 - Los value objects deben ser records.
 - Las entidades intermedias debe ser records.
 - Usar el `_aggregateId` para el id del aggregate que dispone la clase base `CommandHandlerAsyncTest`.
+- OBLIGATORIO: Sin importar la especificación de los objetos usados en los eventos o comandos, cuando se haga referencia al objeto `Dinero` se debe usar la definición del value object `Dinero` que se encuentra en el namespace `Cosmos.Types`. Por ninguna razón se debe crear un value object `Dinero` nuevo.
 
 ## Context
 
