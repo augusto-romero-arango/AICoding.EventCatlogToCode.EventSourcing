@@ -29,7 +29,7 @@ Crear una entidad que representa un objeto de dominio dentro de un subdominio de
 
 ### Ending Context
 
-- **Entity Directory**: Directorio que contendrá la entidad creada, el cual debe estar en el direcotorio del subdominio correspondiente.
+- **Entities Directory**: Directorio que contendrá la entidad creada, el cual debe estar en el direcotorio del subdominio correspondiente.
 
 ## Low-Level Tasks
 > Ordered from start to finish
@@ -48,10 +48,11 @@ Crear una entidad que representa un objeto de dominio dentro de un subdominio de
    - Guardar el nombre normalizado en la variable `{nombre-entidad}`.
 
 3. Crear el directorio de la entidad dentro del directorio del subdominio:
-   - Crear la **Entity Directory** para `{nombre-entidad}`.
+   - OBLIGATORIO:Nunca crear el directorio de entidades en el directorio de dominio. Asegurarse que esté dentro del directorio de subdominio.
+   - Crear la **Entities Directory** para `{nombre-entidad}`.
 
 4. Crear el archivo de especificación de la entidad:
-   - Crear el archivo `index.mdx` dentro de la **Entity Directory**.
+   - Crear el archivo `index.mdx` dentro de la **Entities Directory**.
    - La versión inicial debe ser `0.0.1`.
    - Sugerir un summary para la entidad basado en el nombre de la entidad y la aplicación. El usuario lo puede aceptar o modificar.
    - Preguntar al usuario si la entidad es un aggregate root (true/false).
@@ -111,8 +112,10 @@ Crear una entidad que representa un objeto de dominio dentro de un subdominio de
               referencesIdentifier: Id
               relationType: hasOne
           ```
+
 6. Registrar la entidad en el subdominio:
    - Modificar el archivo `index.mdx` de la **Subdomain Directory** para incluir la entidad. Agregando el `nombre-entidad` al array `entities` en el frontmatter del archivo:
+
      ```mdx
      ---
      ...
@@ -122,9 +125,9 @@ Crear una entidad que representa un objeto de dominio dentro de un subdominio de
      ---
   
      ```
+
    - Si el archivo `index.mdx` ya contiene un array `entities`, agregar la entidad al final del array.
    - Si el archivo `index.mdx` no contiene un array `entities`, crearlo después de la propiedad `summary` con la entidad.
-
 
 7. Validación final:
    - Confirmar con el usuario que todos los pasos se completaron correctamente

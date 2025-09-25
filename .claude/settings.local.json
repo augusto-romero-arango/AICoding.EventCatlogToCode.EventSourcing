@@ -49,7 +49,14 @@
       "Bash(else echo \"ERROR: Application src directory does not exist. Aborting operation.\")",
       "Bash(dotnet test:*)",
       "Bash(xargs:*)",
-      "Read(//Users/luisdiazvalbuena/GitSinco/Cosmos/MotherOfMachines/**)"
+      "Read(//Users/luisdiazvalbuena/GitSinco/Cosmos/MotherOfMachines/**)",
+      "Bash(echo:*)",
+      "Bash(if [ $# -gt 0 ])",
+      "Bash(then echo \"First arg: $1\")",
+      "Bash(else echo \"No arguments provided\")",
+      "Bash(grep:*)",
+      "Bash(paste:*)",
+      "SlashCommand(/catalogo:crear-commandHandler AsignarFechaContableCommandHandler --aplicacion cosmos --subdominio contabilidad_general --dominio financiero --summary \"Handler responsable de procesar la asignación de fecha contable a un borrador contable, validando que el borrador existe y actualizando su fecha contable\")"
     ],
     "deny": []
   }
