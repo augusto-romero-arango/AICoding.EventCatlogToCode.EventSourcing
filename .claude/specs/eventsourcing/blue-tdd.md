@@ -9,8 +9,6 @@
 - Eliminar duplicación de código en el command handler y métodos Apply
 - Extraer métodos privados para lógica compleja
 - Optimizar la estructura del código manteniendo todas las pruebas en verde
-- Aplicar principios SOLID y clean code
-- Mejorar la expresividad del código sin añadir comentarios
 
 ## Implementation notes
 
@@ -42,8 +40,10 @@
 - Eliminación de duplicación
 - Todas las pruebas unitarias siguen pasando (estado verde 🟢)
 - Solution compilando sin errores ni warnings
+- OBLIGATORIO: NO se deben cambiar las pruebas unitarias dentro del refactor.
 
 ## Low-Level Tasks
+
 > Ordered from start to finish
 
 ### 1. Analizar el código actual para identificar oportunidades de refactor:
@@ -58,23 +58,11 @@
   - Lógica que puede extraerse a métodos de utilidad
   - Propiedades calculadas que pueden optimizarse
 
-### 2. Refactorizar validaciones de guards:
-
-- Si hay múltiples guards con lógica similar:
-  - Extraer métodos privados para validaciones comunes:
-  ```c#
-  private static void ValidarGuard(bool condicion, string mensaje)
-  {
-      if (condicion)
-          throw new ArgumentException(mensaje);
-  }
-  ```
-- Agrupar validaciones relacionadas en métodos privados descriptivos
-
-### 3. Refactorizar business rules:
+### 2. Refactorizar business rules:
 
 - Si hay lógica compleja de transformación de datos:
   - Extraer métodos privados con nombres descriptivos:
+
   ```c#
   private static {TipoDato} CalcularValor({Comando} command)
   {
@@ -82,18 +70,10 @@
       return valor;
   }
   ```
+
 - Simplificar la creación de eventos usando métodos de fábrica si es necesario
 
-### 4. Optimizar el flujo del command handler:
-
-- Organizar el método HandleAsync en secciones claramente definidas:
-  - Validaciones
-  - Carga del aggregate
-  - Aplicación de business rules
-  - Creación y emisión del evento
-- Extraer métodos privados para cada sección si son complejos
-
-### 5. Refactorizar el aggregate root:
+### 5. Refactorizar el aggregate root
 
 - Si hay lógica repetitiva en métodos Apply:
   - Extraer métodos de utilidad privados
@@ -101,27 +81,26 @@
 - Optimizar el orden de las propiedades para mejor legibilidad
 - Extraer validaciones o cálculos complejos a métodos privados
 
-### 6. Aplicar principios de clean code:
+### 6. Aplicar principios de clean code
 
 - Verificar que los nombres de variables y métodos sean expresivos
-- Eliminar variables temporales innecesarias
 - Simplificar expresiones complejas
 - Reducir el nivel de anidación cuando sea posible
 - Aplicar el principio de responsabilidad única en métodos privados
 
-### 7. Optimizar imports y organización:
+### 7. Optimizar imports y organización
 
 - Revisar y optimizar las declaraciones using
 - Organizar el código siguiendo convenciones de C#
 - Asegurar consistencia en el estilo de código
 
-### 8. Ejecutar pruebas después de cada refactor:
+### 8. Ejecutar pruebas después de cada refactor
 
 - Ejecutar `dotnet test` después de cada cambio significativo
 - Verificar que todas las pruebas sigan pasando
 - Asegurar que no hay regresiones funcionales
 
-### 9. Validación final:
+### 9. Validación final
 
 - Ejecutar todas las pruebas: `dotnet test`
 - Verificar compilación: `dotnet build`
