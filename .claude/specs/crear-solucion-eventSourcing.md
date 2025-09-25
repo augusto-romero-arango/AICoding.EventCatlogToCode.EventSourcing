@@ -19,33 +19,58 @@
 ## Context
 
 ### Beginning context
+
 - `./{nombre-aplicacion}/src/`  Solo los directorios que estén en este nivel, no se debe adicionar al contexto los contenidos de los subdirectorios.
 
-### Ending context  
+### Ending context
+
 - `./{nombre-aplicacion}/src/{nombre-solucion-creada}/`  
 
 ## Low-Level Tasks
+
 > Ordered from start to finish
 
-### 0. Obtener el nombre de la aplicación
+### 1. Obtener el nombre de la aplicación
+
 - El nombre de la aplicación se debe capturar del prompt.
 - Buscar en la raiz un directorio que habiendo sido normalizado, coincida con el nombre de la aplicación recibido en el prompt. Guardar en la variable `{nombre-aplicacion}` el nombre del directorio encontrado.
 - Verificar que el directorio encontrado contenga una carpeta `src`.
 - Si no se encuentra el directorio o no contiene la carpeta `src`, abortar la operación y mostrar un mensaje de error al usuario.
 
-### 1. Verificar prerrequisitos:
+### 2. Verificar prerrequisitos
 
 **Instrucciones optimizadas:**
-```
+
 Ejecutar en paralelo:
-- Bash: dotnet --version
-- Bash: dotnet new list | grep -i cosmos
-- Bash: dotnet nuget list source
+
+```Bash
+dotnet --version
+```
+
+```Bash
+dotnet new list | grep -i cosmos
+```
+
+```Bash
+dotnet nuget list source
 ```
 
 **Validaciones:**
+
 - SDK .NET 9 debe estar instalado (output: 9.x.xxx)
 - Template "cosmos-eventsourcing" debe aparecer en la lista
+  - Si no está instalado, instruir al usuario a instalarlo con:
+
+    ```Bash
+    dotnet new install Cosmos.EventSourcing.Template
+    ```
+
+  - Si está instalado, volver a instalar para asegurar que está en la última versión:
+
+    ```Bash
+    dotnet new install Cosmos.EventSourcing.Template --force
+    ```
+
 - Feed Cosmos debe estar en la lista de sources de NuGet
 
 ### 2. Normalizar el nombre de la solución en PascalCase
@@ -53,68 +78,81 @@ Ejecutar en paralelo:
 ### 3. Verificar que no exista una solución con el nombre normalizado
 
 **Instrucciones optimizadas:**
+
 ```
 LS: path="./{nombre-aplicacion}/src"
+```
+
 1. Verificar si existe directorio con nombre-solucion-normalizado exacto
 2. Buscar nombres similares usando distancia de Levenshtein o similitud de cadenas
 3. Si existe el nombre exacto: mostrar error y terminar proceso
-4. Si existen nombres similares (>70% similitud): 
+4. Si existen nombres similares (>70% similitud):
    - Mostrar lista de nombres similares encontrados
    - Solicitar aprobación explícita del usuario con el mensaje:
      "Se encontraron soluciones con nombres similares:
      - {nombre_existente_1}
      - {nombre_existente_2}
-     
+
      ¿Desea continuar creando la solución '{nombre-solucion-normalizado}'? (s/n)"
    - Si el usuario responde 'n' o 'no': terminar proceso
    - Si el usuario responde 's' o 'sí': continuar con el proceso
-```
 
 ### 4. Crear el directorio de la solución
 
 **Instrucciones optimizadas:**
-```
-Bash: mkdir -p "./{nombre-aplicacion}/src/{nombre-solucion-normalizado}"
+
+```Bash
+mkdir -p "./{nombre-aplicacion}/src/{nombre-solucion-normalizado}"
 ```
 
 ### 5. Identificación de puertos
 
 **Instrucciones optimizadas:**
-```
+
 Ejecutar para cada solución existente:
+
 - Read: ./{nombre-aplicacion}/src/{solucion}/docker-compose.override.yaml
 
 Extraer puertos con regex:
+
 - Comandos API: /^\s*-\s*"(\d+):8080"/m (contexto: {solucion}comandos-api)
 - Consultas API: /^\s*-\s*"(\d+):8080"/m (contexto: {solucion}consultas-api)
 - Database: /^\s*-\s*"(\d+):5432"/m (contexto: {solucion}database)
 
 Seleccionar puertos libres:
+
 - projectComandosHttpPort: primer puerto libre en [8010-8050]
 - projectConsultasHttpPort: primer puerto libre en [9010-9050]
 - projectNpgDatabasePort: primer puerto libre en [5433-5499]
-```
 
 ### 6. Crear la solución de eventSourcing
 
 **Instrucciones optimizadas:**
-```
-Bash: cd "./{nombre-aplicacion}/src/{nombre-solucion-normalizado}" && dotnet new cosmos-eventsourcing -n {nombre-solucion-normalizado} --projectComandosHttpPort {port1} --projectConsultasHttpPort {port2} --projectNpgDatabasePort {port3}
+
+```Bash
+cd "./{nombre-aplicacion}/src/{nombre-solucion-normalizado}" && dotnet new cosmos-eventsourcing -n {nombre-solucion-normalizado} --projectComandosHttpPort {port1} --projectConsultasHttpPort {port2} --projectNpgDatabasePort {port3}
 ```
 
 ### 7. Verificar que la solución se haya creado correctamente
 
-**Instrucciones optimizadas:**
+```Bash
+cd "./{nombre-aplicacion}/src/{nombre-solucion-normalizado}" && dotnet build {nombre-solucion-normalizado}.sln
 ```
-Bash: cd "./{nombre-aplicacion}/src/{nombre-solucion-normalizado}" && dotnet build {nombre-solucion-normalizado}.sln
+
+**Instrucciones optimizadas:**
+
+```Bash
+cd "./{nombre-aplicacion}/src/{nombre-solucion-normalizado}" && dotnet build {nombre-solucion-normalizado}.sln
 ```
 
 **Validación:**
+
 - Build debe completar con "Build succeeded" y "0 Error(s)"
 
 ### 8. Limpia la memoria del agente
 
 **Instrucciones optimizadas:**
+
 ```claude
 /clear
 ```
