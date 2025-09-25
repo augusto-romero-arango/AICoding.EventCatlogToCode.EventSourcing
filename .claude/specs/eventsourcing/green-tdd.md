@@ -43,81 +43,87 @@
 - Solution compilando sin errores ni warnings
 
 ## Low-Level Tasks
+
 > Ordered from start to finish
 
 ### 1. Analizar las pruebas existentes para entender los requisitos:
 
 - Leer el archivo de pruebas `{CommandHandler}Test.cs` para identificar:
-    - Qué eventos deben ser emitidos
-    - Qué propiedades del aggregate root deben ser modificadas
-    - Qué valores esperados tienen las propiedades
-    - Qué business rules deben aplicarse
-    - Qué guards deben validarse
+
+  - Qué eventos deben ser emitidos
+  - Qué propiedades del aggregate root deben ser modificadas
+  - Qué valores esperados tienen las propiedades
+  - Qué business rules deben aplicarse
+  - Qué guards deben validarse
 
 ### 2. Implementar los métodos Apply en el aggregate root:
 
 - En el archivo `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Entidades/{AggregateRoot}AggregateRoot.cs`:
-    - Agregar métodos Apply privados para cada evento que modifique el aggregate:
-    ```c#
-    private void Apply({Evento} evento)
-    {
-        // Asignar las propiedades del aggregate root basado en el evento
-        [propiedad] = evento.[propiedad];
-    }
-    ```
-    - Los métodos Apply deben seguir exactamente las mutaciones documentadas en la sección "State Mutations" del evento en el archivo LLM
+
+- Agregar métodos Apply privados para cada evento que modifique el aggregate:
+
+```c#
+private void Apply({Evento} evento)
+{
+    // Asignar las propiedades del aggregate root basado en el evento
+    [propiedad] = evento.[propiedad];
+}
+```
+
+- Los métodos Apply deben seguir exactamente las mutaciones documentadas en la sección "State Mutations" del evento en el archivo LLM
 
 ### 3. Implementar la lógica del command handler:
 
 - En el archivo `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Servicios/{CommandHandler}.cs`:
-    - Reemplazar el `NotImplementedException` con la lógica completa:
-    ```c#
-    public async Task HandleAsync({Comando} command, CancellationToken cancellationToken)
+- Reemplazar el `NotImplementedException` con la lógica completa:
+
+```c#
+public async Task HandleAsync({Comando} command, CancellationToken cancellationToken)
+{
+    // 1. Validar guards del comando (si existen)
+    if ([condición de guard])
     {
-        // 1. Validar guards del comando (si existen)
-        if ([condición de guard])
-        {
-            throw new [ExcepcionEspecifica]("Mensaje de error");
-        }
-
-        // 2. Cargar o crear el aggregate root si aplica
-        var aggregate = await eventStore.GetAggregateRootAsync<{AggregateRoot}AggregateRoot>(command.[IdPropiedad], cancellationToken);
-
-        // 3. Aplicar business rules (si existen)
-        // Ejemplo: if ([condición business rule]) { ... }
-
-        // 4. Crear y aplicar el evento
-        var evento = new {Evento}(
-            [mapear propiedades del comando al evento aplicando business rules si es necesario]
-        );
-
-        // 5. Aplicar el evento al aggregate
-        eventStore.AppendEvent(command.[IdPropiedad], evento);
+        throw new [ExcepcionEspecifica]("Mensaje de error");
     }
-    ```
 
-### 4. Implementar validaciones de guards:
+    // 2. Cargar o crear el aggregate root si aplica
+    var aggregate = await eventStore.GetAggregateRootAsync<{AggregateRoot}AggregateRoot>(command.[IdPropiedad], cancellationToken);
+
+    // 3. Aplicar business rules (si existen)
+    // Ejemplo: if ([condición business rule]) { ... }
+
+    // 4. Crear y aplicar el evento
+    var evento = new {Evento}(
+        [mapear propiedades del comando al evento aplicando business rules si es necesario]
+    );
+
+    // 5. Aplicar el evento al aggregate
+    eventStore.AppendEvent(command.[IdPropiedad], evento);
+}
+```
+
+### 4. Implementar validaciones de guards
 
 - Para cada guard documentado en el comando en el archivo LLM:
-    - Implementar la validación correspondiente en el command handler
-    - Lanzar excepciones específicas cuando los guards no se cumplan
-    - Asegurarse de que las excepciones coincidan con lo esperado en las pruebas
+  - Lanzar excepciones específicas cuando los guards no se cumplan
+  - Implementar la validación correspondiente en el command handler
+  - Asegurarse de que las excepciones coincidan con lo esperado en las pruebas
 
-### 5. Implementar business rules:
+### 5. Implementar business rules
 
 - Para cada business rule documentado en el CommandHandler en el archivo LLM:
-    - Implementar la lógica correspondiente en el command handler
-    - Aplicar las transformaciones necesarias a los datos antes de crear el evento
-    - Ejemplo: si el business rule dice "El borrador siempre se crea en estado activo", forzar el estado en el evento
+  - Implementar la lógica correspondiente en el command handler
+  - Aplicar las transformaciones necesarias a los datos antes de crear el evento
+  - Ejemplo: si el business rule dice "El borrador siempre se crea en estado activo", forzar el estado en el evento
 
-### 6. Verificar que las pruebas pasen:
+### 6. Verificar que las pruebas pasen
 
 - Ejecutar las pruebas unitarias: `dotnet test`
 - Verificar que todas las pruebas pasen (estado verde 🟢)
 - Asegurarse de que no hay errores de compilación
 - Confirmar que el command handler procesa correctamente los comandos y emite los eventos esperados
 
-### 7. Refactorizar si es necesario:
+### 7. Refactorizar si es necesario
 
 - Si hay código duplicado, extraer métodos privados
 - Asegurarse de que el código es legible y mantenible
