@@ -41,7 +41,14 @@
       "Bash(if [ -d \"./cosmos/cosmos-catalog/domains/financiero/subdomains/contabilidad_general/entities/BorradorContable\" ])",
       "Bash(then echo \"AggregateRoot BorradorContable exists\")",
       "Bash(else echo \"AggregateRoot BorradorContable does not exist, creating it\")",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(if [ -d \"./financiero\" ])",
+      "Bash(else echo \"ERROR: Application directory ''./financiero'' does not exist. Aborting operation.\")",
+      "Bash(if [ -d \"./financiero/src\" ])",
+      "Bash(then echo \"Application with src directory exists\")",
+      "Bash(else echo \"ERROR: Application src directory does not exist. Aborting operation.\")",
+      "Bash(dotnet test:*)",
+      "Bash(xargs:*)"
     ],
     "deny": []
   }

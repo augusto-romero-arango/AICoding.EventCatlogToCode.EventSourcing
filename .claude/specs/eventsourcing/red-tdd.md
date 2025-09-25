@@ -20,6 +20,7 @@
 - Las propiedades del aggregate root deben tener el set privado.
 - Los value objects deben ser records.
 - Las entidades intermedias debe ser records.
+- Usar el `_aggregateId` para el id del aggregate que dispone la clase base `CommandHandlerAsyncTest`.
 
 ## Context
 
@@ -57,9 +58,11 @@
 - En la seccion State Mutations del evento encontrar que propiedades del aggregate root que son modificadas
 
 ### 2. Crear el archivo de pruebas:
-    - En el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio.Test/` crear el archivo `{CommandHandler}Test.cs`.
+
+- En el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio.Test/` crear el archivo `{CommandHandler}Test.cs`.
     - Usar la siguiente plantilla para la creación de la clase de pruebas:
-    ``` c#
+
+    ```c#
     using AwesomeAssertions;
     using Cosmos.EventSourcing.Abstractions.Commands;
     using Cosmos.EventSourcing.Testing.Utilities;
@@ -72,20 +75,30 @@
             new {CommandHandler}(eventStore);
     }
     ```
-- La primera prueba debe ser verificar que el evento sea emitido y que el aggregate root sea afectado.
+- La primera prueba debe ser verificar que el evento sea emitido y que el aggregate root sea afectado. Con las siguientes instrucciones:
+    - Usar Given, When, Then y And por cada propiedad que el evento modifique del paquete:
+    ```c#
+        Given([eventos previos que debieron haber sido emitidos generalmente de los bussines rules]);
+
+        await WhenAsync([comando]);
+
+        Then([eventos esperados]);
+        [...And<[AggregateRoot], [tipo de dato de la propiedad a evaluar]>(aggregate => aggregate.[propiedad], [valor esperado]);]
+    ```
 - Las siguientes pruebas que se escriban, deben ser los guards y los bussines rules.
 - Las pruebas que son validaciones de existencias (por ejemplo validar si existe el aggregate id) deben arrojar un error.
 - Las pruebas que son de inconsistencias en el aggregate root debe ser un evento de error.
 
 ### 3. Crear el archivo del command handler:
-    - En el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Servicios/{CommandHandler}.cs`
+
+- En el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Servicios/{CommandHandler}.cs`
     - Usar la siguiente plantilla para la creación de la clase del command handler:
     ```c#
     using Cosmos.EventSourcing.Abstractions.Commands;
 
     namespace {nombre-solucion}.Dominio.Servicios;
 
-    public class {CommandHandler}: ICommandHandlerAsync<{Comando}>
+    public class {CommandHandler}(IEventStore eventStore): ICommandHandlerAsync<{Comando}>
     {
         public async Task HandleAsync({Comando} command, CancellationToken cancellationToken)
         {
@@ -94,7 +107,8 @@
     }
     ```
 ### 4. Agregar el record del comando al archivo del command handler:
-    - En el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Servicios/{CommandHandler}.cs`
+
+- En el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Servicios/{CommandHandler}.cs`
     - Usar la siguiente plantilla para la creación de la clase del command handler:
     ```c#
     using Cosmos.EventSourcing.Abstractions.Commands;
@@ -107,8 +121,9 @@
     ```
     - Las propiedades del comando están documentadas en la sección `## Raw Schema:schema.avro` del comando.
 ### 5. Agregar el record del evento al archivo del command handler:
-    - En el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Servicios/{CommandHandler}.cs`
-    - Usar la siguiente plantilla para la creación de la clase del command handler:
+
+- En el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Servicios/{CommandHandler}.cs`
+- Usar la siguiente plantilla para la creación de la clase del command handler:
     ```c#
     using Cosmos.EventSourcing.Abstractions.Commands;
 
@@ -121,7 +136,8 @@
     ```
     - Las propiedades del evento están documentadas en la sección `## Raw Schema:schema.avro` del evento.
 ### 6. Si no existe el aggregate root crearlo:
-    - En el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Entidades/{AggregateRoot}AggregateRoot.cs`
+
+- En el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Entidades/{AggregateRoot}AggregateRoot.cs`
     - Usar la siguiente plantilla para la creación de la clase del aggregate root:
     ```c#
     using Cosmos.EventSourcing.Abstractions;
@@ -133,8 +149,10 @@
         [propiedades del aggregate provenientes de la sección State Mutations]
     }
     ```
-    - Las propiedades del aggregate root que se deben implementar son **UNICAMENTE** las propiedades documentadas en la sección State Mutation del evento.
+- Las propiedades del aggregate root que se deben implementar son **UNICAMENTE** las propiedades documentadas en la sección State Mutation del evento.
+
 ### 7. Identificar los value objects o entidades:
-    - Si alguna de las propiedades del aggregate root son value objects crearlos en el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Entidades/*.cs`
+
+- Si alguna de las propiedades del aggregate root son value objects crearlos en el directorio `./{nombre-aplicacion}/src/{nombre-solucion}/{nombre-solucion}.Dominio/Entidades/*.cs`
 
 ### 3. Garantizar que la solución compile **SIN** implementar el código para que las pruebas pasen (Estado en rojo 🔴).
