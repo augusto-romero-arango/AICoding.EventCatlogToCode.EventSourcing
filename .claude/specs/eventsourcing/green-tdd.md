@@ -63,7 +63,7 @@
 - Agregar métodos Apply privados para cada evento que modifique el aggregate:
 
 ```c#
-private void Apply({Evento} evento)
+public void Apply({Evento} evento)
 {
     // Asignar las propiedades del aggregate root basado en el evento
     [propiedad] = evento.[propiedad];
