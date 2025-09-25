@@ -71,6 +71,17 @@ private void Apply({Evento} evento)
 ```
 
 - Los métodos Apply deben seguir exactamente las mutaciones documentadas en la sección "State Mutations" del evento en el archivo LLM
+- Agregar métodos Apply privados para cada evento que modifique el aggregate:
+
+```c#
+public void Apply({Evento} evento)
+{
+    // Asignar las propiedades del aggregate root basado en el evento
+    [propiedad] = evento.[propiedad];
+}
+```
+
+- Los métodos Apply deben seguir exactamente las mutaciones documentadas en la sección "State Mutations" del evento en el archivo LLM
 
 ### 3. Implementar la lógica del command handler:
 

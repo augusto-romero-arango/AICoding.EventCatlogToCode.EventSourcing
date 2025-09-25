@@ -48,7 +48,8 @@
       "Bash(then echo \"Application with src directory exists\")",
       "Bash(else echo \"ERROR: Application src directory does not exist. Aborting operation.\")",
       "Bash(dotnet test:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Read(//Users/luisdiazvalbuena/GitSinco/Cosmos/MotherOfMachines/**)"
     ],
     "deny": []
   }
