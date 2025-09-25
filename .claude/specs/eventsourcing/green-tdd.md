@@ -24,6 +24,7 @@
 - Las propiedades del aggregate root deben tener el set privado
 - Los value objects deben ser records
 - Las entidades intermedias deben ser records
+- No usar comentarios en el código.
 
 ## Context
 
