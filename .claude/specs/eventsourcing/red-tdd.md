@@ -13,7 +13,7 @@
 ## Implementation notes
 
 - Usa la sintaxis de C# >=12 (https://learn.microsoft.com/es-es/dotnet/csharp/whats-new/csharp-12)
-- Las pruebas están escritas en xUnit 3
+- Las pruebas están escritas en xUnit 3. Revisar la documentación oficial: (https://xunit.net/?tabs=cs)
 - Las pruebas deben compilar, pero no debe haber código de implementación, solo debe haber código en los tests.
 - Los nombres de los métodos debe cumplir con el patrón Si_{Condicion}_Debe_{Evento|Error} o Si_{Condicion}_NoDebe_{Evento|Error}
 - Todos los records **deben** usar el primary constructor para instanciar el objeto.
@@ -76,7 +76,12 @@ public class {CommandHandler}Tests : CommandHandlerAsyncTest<{Comando}>
 {
     protected override ICommandHandlerAsync<{Comando}> Handler =>
         new {CommandHandler}(eventStore);
-}
+
+    [Fact]
+    public async Task {nombre-del-test}()
+    {
+        ....
+    }
 ```
 
 - La primera prueba debe ser verificar que el evento sea emitido y que el aggregate root sea afectado. Con las siguientes instrucciones:
