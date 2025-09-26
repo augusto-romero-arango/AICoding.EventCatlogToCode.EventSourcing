@@ -70,7 +70,7 @@ Crear un evento que es emitido por un CommandHandler dentro de un subdominio de 
    - Las propiedades del evento deben ser proporcionadas como parámetro
    - El formato debe ser: `Prop1:tipo,Prop2:tipo,...`
    - Los tipos pueden ser primitivos (string, int, decimal, boolean, datetime, guid) o complejos
-   - Todas los eventos deben tener una propiedad con el id del agregado root que se muta con la aplicación del evento. Esa propiedad debe corresponder al tipo de datos del id del aggregate root y su nombre debe ser `Id{aggregate-root-name}`. Por ejemplo, si el aggregate root es `Pedido`, la propiedad debe ser `IdPedido`.
+   - Todas los eventos deben tener una propiedad con el id del agregado root que se muta con la aplicación del evento. Esa propiedad debe ser de tipo string (igual que el ID del aggregate root) y su nombre debe ser `Id{aggregate-root-name}`. Por ejemplo, si el aggregate root es `Pedido`, la propiedad debe ser `IdPedido` de tipo string.
 
 7. Recibir información del aggregate root:
    - El nombre del aggregate root debe ser proporcionado como parámetro

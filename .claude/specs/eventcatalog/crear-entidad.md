@@ -82,7 +82,7 @@ Crear una entidad que representa un objeto de dominio dentro de un subdominio de
    - NUNCA asumir propiedades basadas en otros elementos o contexto
    - ESPERAR respuesta completa del usuario antes de continuar
    - Para cada propiedad proporcionada por el usuario, preguntar: nombre exacto, tipo de dato, si es requerida, descripción detallada
-   - OBLIGATORIO: **El Id de la entidad debe ser nombrado como Id de tipo string.** Esto se debe respetar así el evento o comando tenga la estrucuta Id{AggregateRoot}.
+   - OBLIGATORIO: **El Id de la entidad debe ser nombrado como Id de tipo string.** Esto se debe respetar así el evento o comando tenga la estructura Id{AggregateRoot}. Aunque internamente sea un GUID, en las propiedades del EventCatalog se debe documentar como string.
    - Crear propiedades en el frontmatter del archivo `index.mdx` de la entidad con las propiedades especificadas por el usuario
    - Si el usuario menciona objetos complejos anidados, crear entidades separadas para cada uno usando este mismo spec
    - Permitir configurar relaciones entre entidades usando `references`, `relationType` y `referencesIdentifier`

@@ -69,7 +69,7 @@ Crear un comando que es recibido por un CommandHandler dentro de un subdominio d
    - OBLIGATORIO: Preguntar explícitamente "¿Qué propiedades debe tener el comando {nombre-comando}?"
    - NUNCA asumir que las propiedades son iguales al evento relacionado o a cualquier otro elemento
    - ESPERAR respuesta completa del usuario antes de continuar
-   - Todos los comandos deben tener una propiedad con el id del aggregate root que se muta con la aplicación del comando. Esa propiedad debe corresponder al tipo de datos del id del aggregate root y su nombre debe ser `Id{aggregate-root-name}`. Por ejemplo, si el aggregate root es `Pedido`, la propiedad debe ser `IdPedido`.
+   - Todos los comandos deben tener una propiedad con el id del aggregate root que se muta con la aplicación del comando. Esa propiedad debe ser de tipo string (igual que el ID del aggregate root) y su nombre debe ser `Id{aggregate-root-name}`. Por ejemplo, si el aggregate root es `Pedido`, la propiedad debe ser `IdPedido` de tipo string.
    - Para cada propiedad proporcionada por el usuario, preguntar: nombre exacto, tipo de dato, si es requerida, descripción detallada.
    - IMPORTANTE: Los comandos SOLO pueden usar tipos primitivos (string, int, decimal, boolean, datetime, guid). Si el usuario menciona objetos complejos, informar que deben ser aplanados a tipos primitivos y solicitar las propiedades primitivas equivalentes.
 
