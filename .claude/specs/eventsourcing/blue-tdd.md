@@ -7,7 +7,6 @@
 ## Mid-Level Objective
 
 - Eliminar duplicación de código en el command handler y métodos Apply
-- Extraer métodos privados para lógica compleja
 - Optimizar la estructura del código manteniendo todas las pruebas en verde
 - Aplicar principios SOLID y clean code
 - Mejorar la expresividad del código sin añadir comentarios
