@@ -170,7 +170,7 @@ public class {AggregateRoot}AggregateRoot : AggregateRoot
     [propiedades del aggregate provenientes de la sección State Mutations]
 }
 ```
-
+- La propiedad `Id` del aggregate root proviene de la clase base `AggregateRoot`, **NO** se debe crear la propiedad `Id`.
 - Las propiedades del aggregate root que se deben implementar son **UNICAMENTE** las propiedades documentadas en la sección State Mutation del evento.
 
 ### 7. Identificar los value objects o entidades

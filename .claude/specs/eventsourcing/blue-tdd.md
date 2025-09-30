@@ -75,29 +75,30 @@
 ### 5. Refactorizar el aggregate root
 
 - Si hay lógica repetitiva en métodos Apply:
-  - Extraer métodos de utilidad privados
-  - Consolidar asignaciones similares
-- Optimizar el orden de las propiedades para mejor legibilidad
-- Extraer validaciones o cálculos complejos a métodos privados
+  - Extraer métodos de utilidad privados.
+  - Consolidar asignaciones similares.
+- Optimizar el orden de las propiedades para mejor legibilidad.
+- Extraer validaciones o cálculos complejos a métodos privados.
 
 ### 6. Aplicar principios de clean code
 
-- Verificar que los nombres de variables y métodos sean expresivos
-- Simplificar expresiones complejas
-- Reducir el nivel de anidación cuando sea posible
-- Aplicar el principio de responsabilidad única en métodos privados
+- Verificar que los nombres de variables y métodos sean expresivos.
+- Simplificar expresiones complejas.
+- Reducir el nivel de anidación cuando sea posible.
+- Aplicar el principio de responsabilidad única en métodos privados.
+- Salidas rapidas en los métodos.
 
 ### 7. Optimizar imports y organización
 
-- Revisar y optimizar las declaraciones using
-- Organizar el código siguiendo convenciones de C#
-- Asegurar consistencia en el estilo de código
+- Revisar y optimizar las declaraciones using.
+- Organizar el código siguiendo convenciones de C#.
+- Asegurar consistencia en el estilo de código.
 
 ### 8. Ejecutar pruebas después de cada refactor
 
-- Ejecutar `dotnet test` después de cada cambio significativo
-- Verificar que todas las pruebas sigan pasando
-- Asegurar que no hay regresiones funcionales
+- Ejecutar `dotnet test` después de cada cambio significativo.
+- Verificar que todas las pruebas sigan pasando.
+- Asegurar que no hay regresiones funcionales.
 
 ### 9. Validación final
 
@@ -121,16 +122,19 @@
 
 ## Refactoring Patterns
 
-### Guards Validation Pattern
+### Guards Validation Pattern, dentro del record del comando:
 ```c#
-private void ValidarCommandoBase({Comando} command)
-{
-    if (condition1) throw new ArgumentException("Message1");
-    if (condition2) throw new ArgumentException("Message2");
+public record [Comando]([propiedades del comando]) {
+  public void Validar()
+  {
+      if (condition1) throw new ArgumentException("Message1");
+      if (condition2) throw new ArgumentException("Message2");
+  }
 }
+
 ```
 
-### Business Rules Extraction Pattern
+### Business Rules Extraction Pattern:
 ```c#
 private {TipoRetorno} AplicarReglaNegocio({Comando} command)
 {
@@ -139,9 +143,9 @@ private {TipoRetorno} AplicarReglaNegocio({Comando} command)
 }
 ```
 
-### Event Creation Pattern
+### Event Creation Pattern:
 ```c#
-private {Evento} CrearEvento({Comando} command, {ParametrosAdicionales} params)
+private {Evento} CrearEvento({Comando} command, [...ParametrosAdicionales])
 {
     return new {Evento}(
         // Mapeo optimizado de propiedades
