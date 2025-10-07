@@ -1,4 +1,4 @@
-Refactoriza el código del evento para mejorar su calidad manteniendo las pruebas en verde
+Refactoriza el código del evento para mejorar su calidad manteniendo las pruebas en verde **SOLO SI ES NECESARIO**
 
 ## Argumentos
 

@@ -59,7 +59,15 @@
       "SlashCommand(/catalogo:crear-commandHandler AsignarFechaContableCommandHandler --aplicacion cosmos --subdominio contabilidad_general --dominio financiero --summary \"Handler responsable de procesar la asignación de fecha contable a un borrador contable, validando que el borrador existe y actualizando su fecha contable\")",
       "SlashCommand(/catalogo:crear-evento FechaContableAsignada --aplicacion cosmos --subdominio contabilidad_general --dominio financiero --summary \"Evento que se dispara cuando se asigna una fecha contable a un borrador contable, estableciendo la fecha en la cual la transacción será registrada en los libros contables\" --propiedades \"FechaContable:DateOnly\")",
       "SlashCommand(/catalogo:crear-comando AsignarFechaContable --aplicacion cosmos --subdominio contabilidad_general --dominio financiero --summary \"Comando para asignar una fecha contable a un borrador contable existente, validando que el borrador esté en estado editable\" --propiedades \"IdBorradorContable:guid,FechaContable:DateOnly\")",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(dominio:tdd-red CrearBorradorContable)",
+      "Bash(/dominio:tdd-red BorradorContableCreado)",
+      "SlashCommand(/dominio:tdd-red BorradorContableCreado)",
+      "SlashCommand(/dominio:tdd-red Borrador)",
+      "Read(//Users/luisdiazvalbuena/.claude/**)",
+      "Bash(brew tap:*)",
+      "Bash(brew install:*)",
+      "Bash(./statusline.sh)"
     ],
     "deny": []
   }
